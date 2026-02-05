@@ -1,0 +1,39 @@
+sessionTest: [hilang/ada?] hilang
+persistentTest: [hilang/ada?] ada
+
+Cookie dengan Path=/admin akan dikirim ke:
+
+- /admin ✓ atau ✗? \_\_\_ ya
+- /admin/dashboard ✓ atau ✗? \_\_\_ ya
+- /profile ✓ atau ✗? \_\_\_ tidak
+- / ✓ atau ✗? \_\_\_ ya
+
+## **Pertanyaan Refleksi**
+
+Jawab pertanyaan berikut di bagian "Catatan Eksperimen":
+
+1. **Mengapa session cookie (tanpa Max-Age) berguna untuk login?** karena cookie yang di buat hanya bersifat sementara
+   atau dengan kata lain setelah data cookie login, tab langsung di tutup atau cookie hanya bersifat sementara.
+2. **Jika kamu membuat aplikasi e-commerce, atribut apa yang akan kamu gunakan untuk cookie session ID? Jelaskan alasannya.**
+   HttpOnly → mencegah akses lewat JavaScript (lindungi dari XSS)
+   Secure → cookie hanya dikirim lewat HTTPS
+   SameSite=Strict / Lax → mencegah CSRF
+   Max-Age / Expires → mengatur masa login (misalnya “ingat saya”)
+   Path=/ → cookie berlaku untuk seluruh aplikasi
+   Alasannya karena E-commerce menyimpan data sensitif (akun, transaksi, pembayaran) → keamanan harus maksimal.
+3. **Apa risiko keamanan jika cookie session TIDAK menggunakan HttpOnly?**
+   Cookie bisa diakses lewat document.cookie
+   Jika ada celah XSS, attacker bisa
+   Mencuri session ID
+   Mengambil alih akun user (session hijacking)
+   Tanpa HttpOnly = session mudah dicuri
+4. **Kapan sebaiknya menggunakan Expires vs Max-Age?**
+   Expires
+   Menggunakan tanggal & waktu absolut
+   Kurang konsisten karena tergantung waktu sistem user
+   Cocok untuk kebutuhan lama / kompatibilitas lama
+   Max-Age
+   Menggunakan durasi dalam detik
+   Lebih modern & konsisten
+   Direkomendasikan untuk aplikasi saat ini
+5. **Apa yang terjadi jika Domain cookie di-set ke `.example.com`?**
